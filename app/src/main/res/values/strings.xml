@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">androidCook</string>
+    <string name="recipe_name">Recipe:</string>
+    <string name="recipe_item_serves">Serves (%1$d)</string>
+    <string name="recipe_item_image_content_description">Recipe image</string>
 </resources>
