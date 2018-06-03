@@ -27,6 +27,7 @@ public class MainListRecipesAdapter extends RecyclerView.Adapter<MainListRecipes
 
     public void setRecipes(List<Recipe> recipes) {
         this.mRecipes = recipes;
+        notifyDataSetChanged();
     }
 
     @NonNull
