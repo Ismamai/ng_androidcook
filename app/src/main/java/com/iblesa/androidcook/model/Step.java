@@ -1,9 +1,12 @@
 package com.iblesa.androidcook.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Step {
+public class Step implements Parcelable {
 
     @SerializedName("id")
     @Expose
@@ -20,6 +23,14 @@ public class Step {
     @SerializedName("thumbnailURL")
     @Expose
     private String thumbnailURL;
+
+    private Step(Parcel source) {
+        this.id = source.readInt();
+        this.shortDescription = source.readString();
+        this.description = source.readString();
+        this.videoURL = source.readString();
+        this.thumbnailURL = source.readString();
+    }
 
     public int getId() {
         return id;
@@ -60,5 +71,32 @@ public class Step {
     public void setThumbnailURL(String thumbnailURL) {
         this.thumbnailURL = thumbnailURL;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(shortDescription);
+        dest.writeString(description);
+        dest.writeString(videoURL);
+        dest.writeString(thumbnailURL);
+    }
+
+    public static final Parcelable.Creator<Step> CREATOR = new Parcelable.Creator<Step>() {
+
+        @Override
+        public Step createFromParcel(Parcel source) {
+            return new Step(source);
+        }
+
+        @Override
+        public Step[] newArray(int size) {
+            return new Step[size];
+        }
+    };
 
 }

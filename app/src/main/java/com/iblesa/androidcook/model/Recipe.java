@@ -1,10 +1,13 @@
 package com.iblesa.androidcook.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Recipe {
+public class Recipe implements Parcelable {
 
     @SerializedName("id")
     @Expose
@@ -24,6 +27,15 @@ public class Recipe {
     @SerializedName("image")
     @Expose
     private String image;
+
+    private Recipe(Parcel source) {
+        this.id = source.readInt();
+        this.name = source.readString();
+        this.servings = source.readInt();
+        this.image = source.readString();
+        this.ingredients = source.createTypedArrayList(Ingredient.CREATOR);
+        this.steps = source.createTypedArrayList(Step.CREATOR);
+    }
 
     public int getId() {
         return id;
@@ -73,4 +85,32 @@ public class Recipe {
         this.image = image;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeInt(servings);
+        dest.writeString(image);
+        dest.writeTypedList(ingredients);
+        dest.writeTypedList(steps);
+
+    }
+
+    public static final Parcelable.Creator<Recipe> CREATOR = new Parcelable.Creator<Recipe>() {
+
+        @Override
+        public Recipe createFromParcel(Parcel source) {
+            return new Recipe(source);
+        }
+
+        @Override
+        public Recipe[] newArray(int size) {
+            return new Recipe[size];
+        }
+    };
 }
