@@ -65,7 +65,7 @@ public class MainListRecipesAdapter extends RecyclerView.Adapter<MainListRecipes
             mTextViewRecipeName = itemView.findViewById(R.id.recipe_item_name);
             mImageViewRecipeImage = itemView.findViewById(R.id.recipe_item_image);
             mTextViewRecipeServes = itemView.findViewById(R.id.recipe_item_serves);
-            Log.d(Constants.TAG, "Created RecipeViewHolder");
+            Log.d(Constants.TAG, "Created RecipeViewHolder " + this);
         }
 
         public void bind(Recipe recipe) {
