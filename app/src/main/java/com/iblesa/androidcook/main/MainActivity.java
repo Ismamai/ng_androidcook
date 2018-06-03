@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView gridView = findViewById(R.id.rv_main_recipes);
 
         //Setting LayoutManager
-        GridLayoutManager mLayoutManager = new GridLayoutManager(this, 3);
+        GridLayoutManager mLayoutManager = new GridLayoutManager(this, 1);
         gridView.setLayoutManager(mLayoutManager);
 
         //Setting Adapter
@@ -49,8 +49,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
                 List<Recipe> recipes = response.body();
-                String message = String.format("Setting Recipes (%s) %s", recipes.size(), recipes);
+                int size = 0;
+                if (recipes != null && !recipes.isEmpty()) {
+                    size = recipes.size();
+                }
+                String message = String.format("Setting Recipes (%s) %s", size, recipes);
                 Log.d(Constants.TAG, message);
+
                 mRecipesListAdapter.setRecipes(recipes);
             }
 
