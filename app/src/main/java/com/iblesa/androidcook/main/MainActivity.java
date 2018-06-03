@@ -4,8 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.iblesa.androidcook.Constants;
 import com.iblesa.androidcook.R;
 import com.iblesa.androidcook.api.RecipeClient;
 import com.iblesa.androidcook.api.RecipeService;
@@ -43,11 +45,12 @@ public class MainActivity extends AppCompatActivity {
         RecipeService service = client.create(RecipeService.class);
         Call<List<Recipe>> listCall = service.listRecipes();
 
-
         listCall.enqueue(new Callback<List<Recipe>>() {
             @Override
             public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
                 List<Recipe> recipes = response.body();
+                String message = String.format("Setting Recipes (%s) %s", recipes.size(), recipes);
+                Log.d(Constants.TAG, message);
                 mRecipesListAdapter.setRecipes(recipes);
             }
 

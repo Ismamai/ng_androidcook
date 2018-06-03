@@ -3,12 +3,14 @@ package com.iblesa.androidcook.main;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.iblesa.androidcook.Constants;
 import com.iblesa.androidcook.R;
 import com.iblesa.androidcook.model.Recipe;
 
@@ -62,9 +64,12 @@ public class MainListRecipesAdapter extends RecyclerView.Adapter<MainListRecipes
             mTextViewRecipeName = itemView.findViewById(R.id.recipe_item_name);
             mImageViewRecipeImage = itemView.findViewById(R.id.recipe_item_image);
             mTextViewRecipeServes = itemView.findViewById(R.id.recipe_item_serves);
+            Log.d(Constants.TAG, "Created RecipeViewHolder");
         }
 
         public void bind(Recipe recipe) {
+            String message = String.format("Setting RecipeViewHolder (%s) with recipe %s", this, recipe);
+            Log.d(Constants.TAG, message);
             mTextViewRecipeName.setText(recipe.getName());
 //            mImageViewRecipeImage.setImageResource();
             String servings = mContext.getResources().getString(R.string.recipe_item_serves, recipe.getServings());
