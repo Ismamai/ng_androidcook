@@ -54,7 +54,7 @@ public class MainListRecipesAdapter extends RecyclerView.Adapter<MainListRecipes
     }
 
 
-    public class RecipeViewHolder extends RecyclerView.ViewHolder {
+    public class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView mTextViewRecipeName;
         ImageView mImageViewRecipeImage;
         TextView mTextViewRecipeServes;
@@ -65,6 +65,7 @@ public class MainListRecipesAdapter extends RecyclerView.Adapter<MainListRecipes
             mTextViewRecipeName = itemView.findViewById(R.id.recipe_item_name);
             mImageViewRecipeImage = itemView.findViewById(R.id.recipe_item_image);
             mTextViewRecipeServes = itemView.findViewById(R.id.recipe_item_serves);
+            itemView.setOnClickListener(this);
             Log.d(Constants.TAG, "Created RecipeViewHolder " + this);
         }
 
@@ -76,6 +77,12 @@ public class MainListRecipesAdapter extends RecyclerView.Adapter<MainListRecipes
             String servings = mContext.getResources().getString(R.string.recipe_item_serves, recipe.getServings());
             mTextViewRecipeServes.setText(servings);
 
+        }
+
+        @Override
+        public void onClick(View v) {
+            String message = String.format("Clicked element %1s", mRecipes.get(getAdapterPosition()).getName());
+            Log.d(Constants.TAG, message);
         }
     }
 }
