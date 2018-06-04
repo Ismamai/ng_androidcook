@@ -3,7 +3,7 @@
     <string name="recipe_name">Recipe:</string>
     <string name="recipe_item_serves">Serves (%1$d)</string>
     <string name="recipe_item_image_content_description">Recipe image</string>
-    <string name="ingredient_item">%s - (%.2f) %s</string>
+    <string name="ingredient_item">- %s - (%.2f) %s</string>
     <string name="master_ingredients">Ingredients:</string>
 
 </resources>
