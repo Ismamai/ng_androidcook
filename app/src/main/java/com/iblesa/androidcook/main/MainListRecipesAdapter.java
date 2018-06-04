@@ -1,6 +1,8 @@
 package com.iblesa.androidcook.main;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 
 import com.iblesa.androidcook.Constants;
 import com.iblesa.androidcook.R;
+import com.iblesa.androidcook.master.MasterActivity;
 import com.iblesa.androidcook.model.Recipe;
 
 import java.util.List;
@@ -81,8 +84,14 @@ public class MainListRecipesAdapter extends RecyclerView.Adapter<MainListRecipes
 
         @Override
         public void onClick(View v) {
-            String message = String.format("Clicked element %1s", mRecipes.get(getAdapterPosition()).getName());
+            Recipe recipe = mRecipes.get(getAdapterPosition());
+            String message = String.format("Clicked element %1s", recipe.getName());
             Log.d(Constants.TAG, message);
+            Intent intent = new Intent(mContext, MasterActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("RECIPE", recipe);
+            intent.putExtras(bundle);
+            mContext.startActivity(intent);
         }
     }
 }

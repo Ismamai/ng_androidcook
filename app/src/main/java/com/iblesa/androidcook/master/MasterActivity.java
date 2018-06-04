@@ -17,16 +17,14 @@ public class MasterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_master);
         if (getIntent().hasExtra(RECIPE)) {
             mRecipe = getIntent().getParcelableExtra(RECIPE);
             Log.d(Constants.TAG, "Recipe selected " + mRecipe);
 
         }
+        setContentView(R.layout.activity_master);
+
 
     }
 
-    Recipe getRecipe() {
-        return mRecipe;
-    }
 }
