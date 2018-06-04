@@ -3,11 +3,13 @@ package com.iblesa.androidcook.master;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.iblesa.androidcook.Constants;
 import com.iblesa.androidcook.R;
 import com.iblesa.androidcook.model.Ingredient;
 import com.iblesa.androidcook.model.Step;
@@ -41,12 +43,13 @@ public class MasterListStepsAdapter extends RecyclerView.Adapter<MasterListSteps
         return mSteps.size();
     }
 
-    class StepViewHolder extends RecyclerView.ViewHolder {
+    class StepViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView mStep;
 
         StepViewHolder(View itemView) {
             super(itemView);
             mStep = itemView.findViewById(R.id.tv_step_item);
+            mStep.setOnClickListener(this);
         }
 
         void bind(Step step) {
@@ -54,6 +57,11 @@ public class MasterListStepsAdapter extends RecyclerView.Adapter<MasterListSteps
                     step.getId()+1,
                     step.getShortDescription());
             mStep.setText(content);
+        }
+
+        @Override
+        public void onClick(View v) {
+            Log.d(Constants.TAG, "Selected element " + mSteps.get(getAdapterPosition()));
         }
     }
 }
