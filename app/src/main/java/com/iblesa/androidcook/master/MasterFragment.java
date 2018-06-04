@@ -37,6 +37,11 @@ public class MasterFragment extends Fragment {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             MasterListIngredientsAdapter masterListIngredientAdapter = new MasterListIngredientsAdapter(getContext(), recipe.getIngredients());
             recyclerView.setAdapter(masterListIngredientAdapter);
+
+            RecyclerView stepsRecyclerView = view.findViewById(R.id.rv_master_steps);
+            stepsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            MasterListStepsAdapter masterListStepsAdapter = new MasterListStepsAdapter(getContext(), recipe.getSteps());
+            stepsRecyclerView.setAdapter(masterListStepsAdapter);
         } else {
             Log.e(Constants.TAG, "Unable to retrieve intent from activity");
         }
