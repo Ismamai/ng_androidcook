@@ -12,16 +12,10 @@ import com.iblesa.androidcook.model.Recipe;
 public class MasterActivity extends AppCompatActivity {
 
     public static final String RECIPE = "RECIPE";
-    private Recipe mRecipe;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getIntent().hasExtra(RECIPE)) {
-            mRecipe = getIntent().getParcelableExtra(RECIPE);
-            Log.d(Constants.TAG, "Recipe selected " + mRecipe);
-
-        }
         setContentView(R.layout.activity_master);
 
 
