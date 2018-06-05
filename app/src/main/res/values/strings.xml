@@ -7,5 +7,7 @@
     <string name="step_item"> %d.- %s</string>
     <string name="master_ingredients">Ingredients:</string>
     <string name="master_steps">Steps:</string>
+    <string name="step_previous">Previous</string>
+    <string name="step_next">Next</string>
 
 </resources>
