@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.iblesa.androidcook.Constants;
 import com.iblesa.androidcook.R;
-import com.iblesa.androidcook.model.Ingredient;
 import com.iblesa.androidcook.model.Step;
 
 import java.util.List;
@@ -19,10 +18,12 @@ import java.util.List;
 public class MasterListStepsAdapter extends RecyclerView.Adapter<MasterListStepsAdapter.StepViewHolder> {
     private Context mContext;
     private List<Step> mSteps;
+    private MasterFragment.OnStepClickListener listener;
 
-    MasterListStepsAdapter(Context context, List<Step> steps) {
+    MasterListStepsAdapter(Context context, List<Step> steps, MasterFragment.OnStepClickListener listener) {
         this.mContext = context;
         this.mSteps = steps;
+        this.listener = listener;
     }
 
     @NonNull
@@ -62,6 +63,7 @@ public class MasterListStepsAdapter extends RecyclerView.Adapter<MasterListSteps
         @Override
         public void onClick(View v) {
             Log.d(Constants.TAG, "Selected element " + mSteps.get(getAdapterPosition()));
+            listener.onStepSelected(mSteps.get(getAdapterPosition()));
         }
     }
 }

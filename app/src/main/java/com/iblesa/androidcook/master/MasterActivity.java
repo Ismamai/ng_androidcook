@@ -7,9 +7,10 @@ import android.util.Log;
 
 import com.iblesa.androidcook.Constants;
 import com.iblesa.androidcook.R;
-import com.iblesa.androidcook.model.Recipe;
+import com.iblesa.androidcook.master.MasterFragment.OnStepClickListener;
+import com.iblesa.androidcook.model.Step;
 
-public class MasterActivity extends AppCompatActivity {
+public class MasterActivity extends AppCompatActivity implements OnStepClickListener {
 
     public static final String RECIPE = "RECIPE";
 
@@ -21,4 +22,8 @@ public class MasterActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onStepSelected(Step step) {
+        Log.d(Constants.TAG, "Selected step " + step);
+    }
 }

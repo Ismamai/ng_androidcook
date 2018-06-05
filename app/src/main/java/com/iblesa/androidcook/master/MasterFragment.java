@@ -1,6 +1,7 @@
 package com.iblesa.androidcook.master;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,9 +17,11 @@ import android.view.ViewGroup;
 import com.iblesa.androidcook.Constants;
 import com.iblesa.androidcook.R;
 import com.iblesa.androidcook.model.Recipe;
+import com.iblesa.androidcook.model.Step;
 
 public class MasterFragment extends Fragment {
     private static final String RECIPE = "RECIPE";
+    OnStepClickListener mCallBack;
 
     public MasterFragment() {
     }
@@ -40,13 +43,27 @@ public class MasterFragment extends Fragment {
 
             RecyclerView stepsRecyclerView = view.findViewById(R.id.rv_master_steps);
             stepsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            MasterListStepsAdapter masterListStepsAdapter = new MasterListStepsAdapter(getContext(), recipe.getSteps());
+            MasterListStepsAdapter masterListStepsAdapter = new MasterListStepsAdapter(getContext(), recipe.getSteps(), mCallBack);
             stepsRecyclerView.setAdapter(masterListStepsAdapter);
         } else {
             Log.e(Constants.TAG, "Unable to retrieve intent from activity");
         }
-
         return view;
+    }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mCallBack = (OnStepClickListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + "must implement OnStepClickListener");
+        }
+    }
+
+    // Used to notify that a Step has been selected
+    public interface OnStepClickListener {
+        void onStepSelected(Step step);
     }
 }
+
