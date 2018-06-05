@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".master.MasterActivity"/>
+        <activity android:name=".detail.DetailActivity"/>
     </application>
 
 </manifest>
