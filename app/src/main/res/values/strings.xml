@@ -10,5 +10,6 @@
     <string name="step_previous">Previous</string>
     <string name="step_next">Next</string>
     <string name="step_media">Step media</string>
+    <string name="error_message_connectivity">There has been an error loading data, please try again later</string>
 
 </resources>

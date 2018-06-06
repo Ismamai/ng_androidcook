@@ -1,10 +1,15 @@
 package com.iblesa.androidcook.main;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iblesa.androidcook.Constants;
@@ -23,24 +28,49 @@ import retrofit2.Retrofit;
 public class MainActivity extends AppCompatActivity {
 
     private MainListRecipesAdapter mRecipesListAdapter;
+    private RecyclerView mRecyclerView;
+    private TextView mErrorView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        RecyclerView gridView = findViewById(R.id.rv_main_recipes);
+        mRecyclerView = findViewById(R.id.rv_main_recipes);
 
         //Setting LayoutManager
         GridLayoutManager mLayoutManager = new GridLayoutManager(this, 1);
-        gridView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setLayoutManager(mLayoutManager);
 
         //Setting Adapter
         mRecipesListAdapter = new MainListRecipesAdapter(this);
-        gridView.setAdapter(mRecipesListAdapter);
+        mRecyclerView.setAdapter(mRecipesListAdapter);
         loadRecipes();
     }
 
+    private void checkConnectivity() {
+        ConnectivityManager cm =
+                (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = null;
+        if (cm != null) {
+            activeNetwork = cm.getActiveNetworkInfo();
+        }
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        if (!isConnected) {
+            showError();
+        }
+    }
+
+    private void showError() {
+        mErrorView = findViewById(R.id.tv_error_view);
+        mErrorView.setVisibility(View.VISIBLE);
+        mRecyclerView.setVisibility(View.GONE);
+
+
+    }
     private void loadRecipes() {
+        checkConnectivity();
         Retrofit client = RecipeClient.getClient();
         RecipeService service = client.create(RecipeService.class);
         Call<List<Recipe>> listCall = service.listRecipes();
