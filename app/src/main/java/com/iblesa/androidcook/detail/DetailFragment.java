@@ -1,8 +1,6 @@
 package com.iblesa.androidcook.detail;
 
-import android.app.Activity;
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -18,10 +16,8 @@ import com.iblesa.androidcook.model.Step;
 import com.squareup.picasso.Picasso;
 
 public class DetailFragment extends Fragment {
-    private static final String STEP = "STEP";
 
-    private TextView mDescription;
-    private ImageView mMedia;
+    private Step mStep;
 
     public DetailFragment() {
     }
@@ -31,39 +27,39 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
 
-        mDescription = view.findViewById(R.id.step_desc);
-        mMedia = view.findViewById(R.id.step_media);
+        TextView mDescription = view.findViewById(R.id.step_desc);
+        ImageView mMedia = view.findViewById(R.id.step_media);
 
-        Activity activity = getActivity();
-
-        if (activity != null) {
-            Intent intent = activity.getIntent();
-            Step step = intent.getParcelableExtra(STEP);
-            mDescription.setText(step.getDescription());
-            String videoUrl = step.getVideoURL();
-            if (videoUrl != null && !videoUrl.isEmpty()) {
-                Log.d(Constants.TAG, "VideoURL to load is " + videoUrl);
-            } else {
-
-                String thumbnailURL = step.getThumbnailURL();
-                Log.d(Constants.TAG, "ThumbnailURL is " + thumbnailURL);
-                if (thumbnailURL!=null && !thumbnailURL.isEmpty()) {
-                    Picasso.get()
-                            .load(thumbnailURL)
-                            .placeholder(R.drawable.progress_image)
-                            .error(R.drawable.image_placeholder)
-                            .into(mMedia);
-                } else {
-                    Picasso.get()
-                            .load(R.drawable.image_placeholder)
-                            .placeholder(R.drawable.progress_image)
-                            .into(mMedia);
-                }
-            }
+        mDescription.setText(mStep.getDescription());
+        String videoUrl = mStep.getVideoURL();
+        if (videoUrl != null && !videoUrl.isEmpty()) {
+            Log.d(Constants.TAG, "VideoURL to load is " + videoUrl);
         } else {
-            Log.e(Constants.TAG, "Unable to retrieve intent STEP from activity");
+
+            String thumbnailURL = mStep.getThumbnailURL();
+            Log.d(Constants.TAG, "ThumbnailURL is " + thumbnailURL);
+            if (thumbnailURL != null && !thumbnailURL.isEmpty()) {
+                Picasso.get()
+                        .load(thumbnailURL)
+                        .placeholder(R.drawable.progress_image)
+                        .error(R.drawable.image_placeholder)
+                        .into(mMedia);
+            } else {
+                Picasso.get()
+                        .load(R.drawable.image_placeholder)
+                        .placeholder(R.drawable.progress_image)
+                        .into(mMedia);
+            }
         }
         return view;
+    }
+
+    /**
+     * Specifies the step to display in the detail activity
+     * @param step Step to display
+     */
+    public void setStep(Step step) {
+        mStep = step;
     }
 
 }
