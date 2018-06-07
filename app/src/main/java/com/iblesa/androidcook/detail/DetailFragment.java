@@ -50,12 +50,13 @@ public class DetailFragment extends Fragment {
                 if (thumbnailURL!=null && !thumbnailURL.isEmpty()) {
                     Picasso.get()
                             .load(thumbnailURL)
-                            .placeholder(R.drawable.image_placeholder)
+                            .placeholder(R.drawable.progress_image)
                             .error(R.drawable.image_placeholder)
                             .into(mMedia);
                 } else {
                     Picasso.get()
                             .load(R.drawable.image_placeholder)
+                            .placeholder(R.drawable.progress_image)
                             .into(mMedia);
                 }
             }
