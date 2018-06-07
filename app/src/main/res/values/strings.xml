@@ -11,5 +11,7 @@
     <string name="step_next">Next</string>
     <string name="step_media">Step media</string>
     <string name="error_message_connectivity">There has been an error loading data, please try again later</string>
+    <string name="already_on_next_step">You are already in the last step</string>
+    <string name="already_on_first_step">You are already in the first step</string>
 
 </resources>
