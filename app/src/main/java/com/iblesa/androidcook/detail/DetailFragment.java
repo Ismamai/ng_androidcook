@@ -54,7 +54,7 @@ public class DetailFragment extends Fragment {
             Log.d(Constants.TAG, "VideoURL to load is " + videoUrl);
             initializePlayer(Uri.parse(videoUrl));
         } else {
-
+            showBackupMedia(mMedia);
             Log.d(Constants.TAG, "ThumbnailURL is " + thumbnailURL);
             if (thumbnailURL != null && !thumbnailURL.isEmpty()) {
                 Picasso.get()
@@ -70,6 +70,11 @@ public class DetailFragment extends Fragment {
             }
         }
         return view;
+    }
+
+    private void showBackupMedia(ImageView mMedia) {
+        mMedia.setVisibility(View.VISIBLE);
+        mSimpleExoPlayerView.setVisibility(View.INVISIBLE);
     }
 
     /**
