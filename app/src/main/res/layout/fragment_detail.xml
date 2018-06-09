@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Fragment that displays a step of a recipe -->
+<?xml version="1.0" encoding="utf-8"?><!-- Fragment that displays a step of a recipe -->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="wrap_content">
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline_start"
@@ -17,20 +16,20 @@
         android:id="@+id/step_media"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/guideline_bottom"
         android:contentDescription="@string/step_media"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/guideline_bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+        android:id="@+id/step_video"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/step_video"
+        app:layout_constraintBottom_toTopOf="@id/guideline_bottom"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/guideline_bottom">
+        app:layout_constraintTop_toTopOf="parent">
 
     </com.google.android.exoplayer2.ui.SimpleExoPlayerView>
 
@@ -42,9 +41,9 @@
         app:layout_constraintGuide_percent="0.4" />
 
     <TextView
+        android:id="@+id/step_desc"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/step_desc"
         app:layout_constraintBottom_toTopOf="@id/guideline_end"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
         app:layout_constraintTop_toBottomOf="@id/guideline_bottom"
@@ -61,32 +60,32 @@
         android:id="@+id/step_previous"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:onClick="clickPrevious"
-        android:text="@string/step_previous"
-        android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginStart="8dp"
+        android:onClick="clickPrevious"
+        android:text="@string/step_previous"
         app:layout_constraintEnd_toStartOf="@+id/step_next"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline_end"
-        android:layout_marginRight="4dp"
-        android:layout_marginLeft="8dp" />
+        app:layout_constraintTop_toBottomOf="@id/guideline_end" />
 
     <Button
         android:id="@+id/step_next"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:onClick="clickNext"
-        android:text="@string/step_next"
-        android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginStart="8dp"
+        android:onClick="clickNext"
+        android:text="@string/step_next"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/step_previous"
-        app:layout_constraintTop_toBottomOf="@id/guideline_end"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="4dp" />
+        app:layout_constraintTop_toBottomOf="@id/guideline_end" />
 
 </android.support.constraint.ConstraintLayout>
