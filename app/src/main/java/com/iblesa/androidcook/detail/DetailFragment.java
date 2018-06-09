@@ -98,10 +98,22 @@ public class DetailFragment extends Fragment {
      * method to releasePlayer
      */
     private void releasePlayer() {
-        mExoPlayer.stop();
-        mExoPlayer.release();
-        mExoPlayer = null;
+        if (mExoPlayer != null) {
+            mExoPlayer.stop();
+            mExoPlayer.release();
+            mExoPlayer = null;
+        }
     }
+
+    /**
+     * Release the player when the activity is destroyed.
+     */
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        releasePlayer();
+    }
+
     /**
      * Specifies the step to display in the detail activity
      * @param step Step to display
@@ -109,5 +121,6 @@ public class DetailFragment extends Fragment {
     public void setStep(Step step) {
         mStep = step;
     }
+
 
 }
