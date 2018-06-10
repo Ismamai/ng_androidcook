@@ -23,17 +23,23 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
         mStep = getIntent().getParcelableExtra(STEP);
         mRecipe = getIntent().getParcelableExtra(RECIPE);
-
-        FragmentManager fragmentManager = getFragmentManager();
-        DetailFragment detailFragment = new DetailFragment();
-        fragmentManager.beginTransaction()
-                .add(R.id.detail_container, detailFragment)
-                .commit();
-        detailFragment.setStep(mStep);
-
+        if (savedInstanceState == null) {
+            FragmentManager fragmentManager = getFragmentManager();
+            DetailFragment detailFragment = new DetailFragment();
+            fragmentManager.beginTransaction()
+                    .add(R.id.detail_container, detailFragment)
+                    .commit();
+            detailFragment.setStep(mStep);
+        } else {
+            FragmentManager fragmentManager = getFragmentManager();
+            DetailFragment detailFragment = new DetailFragment();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.detail_container, detailFragment)
+                    .commit();
+            detailFragment.setStep(mStep);
+        }
     }
 
     public void clickNext(View view) {
