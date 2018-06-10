@@ -35,6 +35,7 @@ public class DetailFragment extends Fragment {
     private SimpleExoPlayerView mSimpleExoPlayerView;
 
     public DetailFragment() {
+        Log.d(Constants.TAG, "DetailFragment constructor called");
     }
 
     @Nullable

@@ -34,7 +34,6 @@ public class DetailActivity extends AppCompatActivity {
                 .commit();
         detailFragment.setStep(mStep);
 
-
     }
 
     public void clickNext(View view) {
