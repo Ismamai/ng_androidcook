@@ -28,11 +28,19 @@ import com.iblesa.androidcook.R;
 import com.iblesa.androidcook.model.Step;
 import com.squareup.picasso.Picasso;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class DetailFragment extends Fragment {
 
     private Step mStep;
     private SimpleExoPlayer mExoPlayer;
-    private SimpleExoPlayerView mSimpleExoPlayerView;
+    @BindView(R.id.step_video)
+    SimpleExoPlayerView mSimpleExoPlayerView;
+    @BindView(R.id.step_desc)
+    TextView mDescription;
+    @BindView(R.id.step_media)
+    ImageView mMedia;
 
     public DetailFragment() {
         Log.d(Constants.TAG, "DetailFragment constructor called");
@@ -42,11 +50,7 @@ public class DetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
-
-        TextView mDescription = view.findViewById(R.id.step_desc);
-        ImageView mMedia = view.findViewById(R.id.step_media);
-        mSimpleExoPlayerView = view.findViewById(R.id.step_video);
-
+        ButterKnife.bind(this, view);
         mDescription.setText(mStep.getDescription());
         String videoUrl = mStep.getVideoURL();
         String thumbnailURL = mStep.getThumbnailURL();
