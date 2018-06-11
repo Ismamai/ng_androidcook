@@ -19,6 +19,9 @@ import com.iblesa.androidcook.model.Recipe;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainListRecipesAdapter extends RecyclerView.Adapter<MainListRecipesAdapter.RecipeViewHolder> {
     private List<Recipe> mRecipes;
     private final Context mContext;
@@ -58,16 +61,17 @@ public class MainListRecipesAdapter extends RecyclerView.Adapter<MainListRecipes
 
 
     public class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        @BindView(R.id.recipe_item_name)
         TextView mTextViewRecipeName;
+        @BindView(R.id.recipe_item_image)
         ImageView mImageViewRecipeImage;
+        @BindView(R.id.recipe_item_serves)
         TextView mTextViewRecipeServes;
 
         public RecipeViewHolder(View itemView) {
             super(itemView);
             mContext.getResources();
-            mTextViewRecipeName = itemView.findViewById(R.id.recipe_item_name);
-            mImageViewRecipeImage = itemView.findViewById(R.id.recipe_item_image);
-            mTextViewRecipeServes = itemView.findViewById(R.id.recipe_item_serves);
+            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
             Log.d(Constants.TAG, "Created RecipeViewHolder " + this);
         }
