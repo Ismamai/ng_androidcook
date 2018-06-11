@@ -13,6 +13,9 @@ import com.iblesa.androidcook.model.Ingredient;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MasterListIngredientsAdapter extends RecyclerView.Adapter<MasterListIngredientsAdapter.IngredientViewHolder> {
     private Context mContext;
     private List<Ingredient> mIngredients;
@@ -41,11 +44,12 @@ public class MasterListIngredientsAdapter extends RecyclerView.Adapter<MasterLis
     }
 
     class IngredientViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.tv_ingredient_item)
         TextView mIngredient;
 
         IngredientViewHolder(View itemView) {
             super(itemView);
-            mIngredient = itemView.findViewById(R.id.tv_ingredient_item);
+            ButterKnife.bind(this, itemView);
         }
 
         void bind(Ingredient ingredient) {

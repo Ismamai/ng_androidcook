@@ -19,9 +19,17 @@ import com.iblesa.androidcook.R;
 import com.iblesa.androidcook.model.Recipe;
 import com.iblesa.androidcook.model.Step;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MasterFragment extends Fragment {
     private static final String RECIPE = "RECIPE";
     OnStepClickListener mCallBack;
+
+    @BindView(R.id.rv_master_ingredients)
+    RecyclerView mRecyclerViewMasterIngredients;
+    @BindView(R.id.rv_master_steps)
+    RecyclerView mRecyclerViewMasterSteps;
 
     public MasterFragment() {
     }
@@ -31,20 +39,19 @@ public class MasterFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_master, container, false);
         Activity activity = getActivity();
+        ButterKnife.bind(this, view);
         if (activity != null) {
             Intent intent = activity.getIntent();
 
             Recipe recipe = intent.getParcelableExtra(RECIPE);
 
-            RecyclerView recyclerView = view.findViewById(R.id.rv_master_ingredients);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            mRecyclerViewMasterIngredients.setLayoutManager(new LinearLayoutManager(getContext()));
             MasterListIngredientsAdapter masterListIngredientAdapter = new MasterListIngredientsAdapter(getContext(), recipe.getIngredients());
-            recyclerView.setAdapter(masterListIngredientAdapter);
+            mRecyclerViewMasterIngredients.setAdapter(masterListIngredientAdapter);
 
-            RecyclerView stepsRecyclerView = view.findViewById(R.id.rv_master_steps);
-            stepsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            mRecyclerViewMasterSteps.setLayoutManager(new LinearLayoutManager(getContext()));
             MasterListStepsAdapter masterListStepsAdapter = new MasterListStepsAdapter(getContext(), recipe.getSteps(), mCallBack);
-            stepsRecyclerView.setAdapter(masterListStepsAdapter);
+            mRecyclerViewMasterSteps.setAdapter(masterListStepsAdapter);
         } else {
             Log.e(Constants.TAG, "Unable to retrieve intent from activity");
         }

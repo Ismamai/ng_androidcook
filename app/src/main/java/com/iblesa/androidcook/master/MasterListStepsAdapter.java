@@ -15,6 +15,9 @@ import com.iblesa.androidcook.model.Step;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MasterListStepsAdapter extends RecyclerView.Adapter<MasterListStepsAdapter.StepViewHolder> {
     private Context mContext;
     private List<Step> mSteps;
@@ -45,11 +48,12 @@ public class MasterListStepsAdapter extends RecyclerView.Adapter<MasterListSteps
     }
 
     class StepViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        @BindView(R.id.tv_step_item)
         TextView mStep;
 
         StepViewHolder(View itemView) {
             super(itemView);
-            mStep = itemView.findViewById(R.id.tv_step_item);
+            ButterKnife.bind(this, itemView);
             mStep.setOnClickListener(this);
         }
 
