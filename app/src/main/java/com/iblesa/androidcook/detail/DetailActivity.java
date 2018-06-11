@@ -29,10 +29,10 @@ public class DetailActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             FragmentManager fragmentManager = getFragmentManager();
             detailFragment = new DetailFragment();
+            detailFragment.setStep(mStep);
             fragmentManager.beginTransaction()
                     .add(R.id.detail_container, detailFragment)
                     .commit();
-            detailFragment.setStep(mStep);
         }
     }
 
