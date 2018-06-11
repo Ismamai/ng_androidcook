@@ -52,6 +52,11 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
         ButterKnife.bind(this, view);
+
+        if (savedInstanceState != null) {
+            mStep = savedInstanceState.getParcelable(STEP);
+        }
+
         mDescription.setText(mStep.getDescription());
         String videoUrl = mStep.getVideoURL();
         String thumbnailURL = mStep.getThumbnailURL();
@@ -139,11 +144,5 @@ public class DetailFragment extends Fragment {
         outState.putParcelable(STEP, mStep);
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        if (savedInstanceState != null) {
-            mStep = savedInstanceState.getParcelable(STEP);
-        }
-    }
+
 }
