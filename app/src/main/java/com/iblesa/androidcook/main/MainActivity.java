@@ -20,6 +20,8 @@ import com.iblesa.androidcook.model.Recipe;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,14 +30,16 @@ import retrofit2.Retrofit;
 public class MainActivity extends AppCompatActivity {
 
     private MainListRecipesAdapter mRecipesListAdapter;
-    private RecyclerView mRecyclerView;
-    private TextView mErrorView;
+    @BindView(R.id.rv_main_recipes)
+    RecyclerView mRecyclerView;
+    @BindView(R.id.tv_error_view)
+    TextView mErrorView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mRecyclerView = findViewById(R.id.rv_main_recipes);
+        ButterKnife.bind(this);
 
         //Setting LayoutManager
         GridLayoutManager mLayoutManager = new GridLayoutManager(this, 1);
@@ -63,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showError() {
-        mErrorView = findViewById(R.id.tv_error_view);
         mErrorView.setVisibility(View.VISIBLE);
         mRecyclerView.setVisibility(View.GONE);
 
