@@ -33,6 +33,7 @@ import butterknife.ButterKnife;
 
 public class DetailFragment extends Fragment {
 
+    public static final String STEP = "STEP";
     private Step mStep;
     private SimpleExoPlayer mExoPlayer;
     @BindView(R.id.step_video)
@@ -132,5 +133,17 @@ public class DetailFragment extends Fragment {
         mStep = step;
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(STEP, mStep);
+    }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            mStep = savedInstanceState.getParcelable(STEP);
+        }
+    }
 }
