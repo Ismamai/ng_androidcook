@@ -18,6 +18,7 @@ public class DetailActivity extends AppCompatActivity {
     private static final String RECIPE = "RECIPE";
     private Step mStep;
     private Recipe mRecipe;
+    private DetailFragment detailFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,16 +28,9 @@ public class DetailActivity extends AppCompatActivity {
         mRecipe = getIntent().getParcelableExtra(RECIPE);
         if (savedInstanceState == null) {
             FragmentManager fragmentManager = getFragmentManager();
-            DetailFragment detailFragment = new DetailFragment();
+            detailFragment = new DetailFragment();
             fragmentManager.beginTransaction()
                     .add(R.id.detail_container, detailFragment)
-                    .commit();
-            detailFragment.setStep(mStep);
-        } else {
-            FragmentManager fragmentManager = getFragmentManager();
-            DetailFragment detailFragment = new DetailFragment();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.detail_container, detailFragment)
                     .commit();
             detailFragment.setStep(mStep);
         }
