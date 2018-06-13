@@ -34,6 +34,9 @@ import butterknife.ButterKnife;
 public class DetailFragment extends Fragment {
 
     public static final String STEP = "STEP";
+    private static final String PLAYER_POSITION = "PLAYER_POSITION";
+    public static final String PLAY_WHEN_READY = "PLAY_WHEN_READY";
+    public static final String CURRENT_WINDOW = "CURRENT_WINDOW";
     private Step mStep;
     private SimpleExoPlayer mExoPlayer;
     @BindView(R.id.step_video)
@@ -42,6 +45,10 @@ public class DetailFragment extends Fragment {
     TextView mDescription;
     @BindView(R.id.step_media)
     ImageView mMedia;
+    //Player config values
+    private long playbackPosition;
+    private int currentWindow;
+    private boolean playWhenReady;
 
     public DetailFragment() {
         Log.d(Constants.TAG, "DetailFragment constructor called");
@@ -63,6 +70,16 @@ public class DetailFragment extends Fragment {
 
         if (videoUrl != null && !videoUrl.isEmpty()) {
             Log.d(Constants.TAG, "VideoURL to load is " + videoUrl);
+            if (savedInstanceState != null){
+                playWhenReady=savedInstanceState.getBoolean(PLAY_WHEN_READY);
+                playbackPosition= savedInstanceState.getLong(PLAYER_POSITION);
+                currentWindow=savedInstanceState.getInt(CURRENT_WINDOW);
+                // mPlayer.setPlayWhenReady(playWhenReady);
+                //    mPlayer.seekTo(currentWindow, playbackPosition);
+            }else{
+                playWhenReady = true;
+                playbackPosition=0;
+            }
             initializePlayer(Uri.parse(videoUrl));
         } else {
             showBackupMedia(mMedia);
@@ -106,7 +123,8 @@ public class DetailFragment extends Fragment {
             MediaSource mediaSource = new ExtractorMediaSource(mediaUri, new DefaultDataSourceFactory(
                     getActivity(), userAgent), new DefaultExtractorsFactory(), null, null);
             mExoPlayer.prepare(mediaSource);
-            mExoPlayer.setPlayWhenReady(true);
+            mExoPlayer.setPlayWhenReady(playWhenReady);
+            mExoPlayer.seekTo(currentWindow, playbackPosition);
         }
     }
 
@@ -142,6 +160,12 @@ public class DetailFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(STEP, mStep);
+        if (mExoPlayer != null) {
+            outState.putLong(PLAYER_POSITION, mExoPlayer.getCurrentPosition());
+            outState.putBoolean(PLAY_WHEN_READY, mExoPlayer.getPlayWhenReady());
+            outState.putInt(CURRENT_WINDOW, mExoPlayer.getCurrentWindowIndex());
+
+        }
     }
 
 
