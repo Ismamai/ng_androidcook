@@ -2,7 +2,9 @@ package com.iblesa.androidcook.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.iblesa.androidcook.Constants;
 import com.iblesa.androidcook.R;
 import com.iblesa.androidcook.master.MasterActivity;
@@ -95,7 +98,25 @@ public class MainListRecipesAdapter extends RecyclerView.Adapter<MainListRecipes
             Bundle bundle = new Bundle();
             bundle.putParcelable("RECIPE", recipe);
             intent.putExtras(bundle);
+
+            storeSelectedStep(recipe);
+
             mContext.startActivity(intent);
+        }
+
+        /**
+         * Stores selected recipe in shared preferences to be used by the widget to display recipe
+         * and ingredients list.
+         * @param recipe selected recipe
+         */
+        private void storeSelectedStep(Recipe recipe) {
+            SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+            SharedPreferences.Editor edit = defaultSharedPreferences.edit();
+            Gson gson = new Gson();
+            String ingredients = gson.toJson(recipe.getIngredients());
+            edit.putString(Constants.SHARED_PREFERENCE_RECIPE_NAME, recipe.getName());
+            edit.putString(Constants.SHARED_PREFERENCE_INGREDIENTS_LIST, ingredients);
+            edit.apply();
         }
     }
 }
