@@ -22,23 +22,27 @@ public class AndroidCookWidget extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
-        CharSequence widgetText = context.getString(R.string.appwidget_text);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.android_cook_widget);
-        views.setTextViewText(R.id.appwidget_text, widgetText);
 
         //Retrieve selected Recipe
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String recipeName = sharedPreferences.getString(Constants.SHARED_PREFERENCE_RECIPE_NAME, null);
         String ingredientsJson = sharedPreferences.getString(Constants.SHARED_PREFERENCE_INGREDIENTS_LIST, null);
-        List<Ingredient> ingredientList;
-        if (ingredientsJson != null) {
-            Gson gson = new Gson();
-            ingredientList = gson.fromJson(ingredientsJson, new TypeToken<List<Ingredient>>() {
-            }.getType());
-            Log.d(Constants.TAG, ingredientList.toString());
-        }
+        if (recipeName== null) {
+            CharSequence widgetText = context.getString(R.string.appwidget_text);
+            views.setTextViewText(R.id.appwidget_recipe_name, widgetText);
+        } else {
+            views.setTextViewText(R.id.appwidget_recipe_name, recipeName);
 
+            List<Ingredient> ingredientList;
+            if (ingredientsJson != null) {
+                Gson gson = new Gson();
+                ingredientList = gson.fromJson(ingredientsJson, new TypeToken<List<Ingredient>>() {
+                }.getType());
+                Log.d(Constants.TAG, ingredientList.toString());
+            }
+        }
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
