@@ -3,7 +3,16 @@ package com.iblesa.androidcook;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.RemoteViews;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.iblesa.androidcook.model.Ingredient;
+
+import java.util.List;
 
 /**
  * Implementation of App Widget functionality.
@@ -17,6 +26,18 @@ public class AndroidCookWidget extends AppWidgetProvider {
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.android_cook_widget);
         views.setTextViewText(R.id.appwidget_text, widgetText);
+
+        //Retrieve selected Recipe
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String recipeName = sharedPreferences.getString(Constants.SHARED_PREFERENCE_RECIPE_NAME, null);
+        String ingredientsJson = sharedPreferences.getString(Constants.SHARED_PREFERENCE_INGREDIENTS_LIST, null);
+        List<Ingredient> ingredientList;
+        if (ingredientsJson != null) {
+            Gson gson = new Gson();
+            ingredientList = gson.fromJson(ingredientsJson, new TypeToken<List<Ingredient>>() {
+            }.getType());
+            Log.d(Constants.TAG, ingredientList.toString());
+        }
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
