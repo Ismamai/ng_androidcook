@@ -22,7 +22,7 @@
         <activity android:name=".master.MasterActivity" />
         <activity android:name=".detail.DetailActivity" />
 
-        <receiver android:name=".AndroidCookWidget">
+        <receiver android:name=".widget.AndroidCookWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>

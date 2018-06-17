@@ -1,4 +1,4 @@
-package com.iblesa.androidcook;
+package com.iblesa.androidcook.widget;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -10,6 +10,8 @@ import android.widget.RemoteViews;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.iblesa.androidcook.Constants;
+import com.iblesa.androidcook.R;
 import com.iblesa.androidcook.model.Ingredient;
 
 import java.util.List;
