@@ -31,6 +31,9 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/android_cook_widget_info" />
         </receiver>
+        <service
+            android:name=".widget.grid.GridWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 
 </manifest>

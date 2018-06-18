@@ -3,18 +3,14 @@ package com.iblesa.androidcook.widget;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.widget.RemoteViews;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.iblesa.androidcook.Constants;
 import com.iblesa.androidcook.R;
-import com.iblesa.androidcook.model.Ingredient;
-
-import java.util.List;
+import com.iblesa.androidcook.widget.grid.GridWidgetService;
 
 /**
  * Implementation of App Widget functionality.
@@ -30,21 +26,17 @@ public class AndroidCookWidget extends AppWidgetProvider {
         //Retrieve selected Recipe
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String recipeName = sharedPreferences.getString(Constants.SHARED_PREFERENCE_RECIPE_NAME, null);
-        String ingredientsJson = sharedPreferences.getString(Constants.SHARED_PREFERENCE_INGREDIENTS_LIST, null);
-        if (recipeName== null) {
-            CharSequence widgetText = context.getString(R.string.appwidget_text);
-            views.setTextViewText(R.id.appwidget_recipe_name, widgetText);
-        } else {
-            views.setTextViewText(R.id.appwidget_recipe_name, recipeName);
-
-            List<Ingredient> ingredientList;
-            if (ingredientsJson != null) {
-                Gson gson = new Gson();
-                ingredientList = gson.fromJson(ingredientsJson, new TypeToken<List<Ingredient>>() {
-                }.getType());
-                Log.d(Constants.TAG, ingredientList.toString());
-            }
+        if (recipeName == null) {
+            recipeName = context.getString(R.string.appwidget_text);
         }
+        views.setTextViewText(R.id.appwidget_recipe_name, recipeName);
+
+        Intent gridViewIntent = new Intent(context, GridWidgetService.class);
+        views.setRemoteAdapter(R.id.widget_grid_view, gridViewIntent);
+        views.setEmptyView(R.id.widget_grid_view, R.id.widget_empty_view);
+
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_grid_view);
+
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }

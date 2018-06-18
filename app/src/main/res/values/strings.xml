@@ -15,5 +15,6 @@
     <string name="already_on_first_step">You are already in the first step</string>
     <string name="appwidget_text">Recipe name</string>
     <string name="add_widget">Add widget</string>
+    <string name="widget_empty_view_message">Please select recipe in Android Cook App</string>
 
 </resources>
