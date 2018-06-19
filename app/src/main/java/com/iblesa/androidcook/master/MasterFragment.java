@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.iblesa.androidcook.Constants;
 import com.iblesa.androidcook.R;
@@ -30,6 +31,8 @@ public class MasterFragment extends Fragment {
     RecyclerView mRecyclerViewMasterIngredients;
     @BindView(R.id.rv_master_steps)
     RecyclerView mRecyclerViewMasterSteps;
+    @BindView(R.id.tv_master_recipe_name)
+    TextView mRecipeName;
 
     public MasterFragment() {
     }
@@ -45,6 +48,7 @@ public class MasterFragment extends Fragment {
 
             Recipe recipe = intent.getParcelableExtra(RECIPE);
 
+            mRecipeName.setText(recipe.getName());
             mRecyclerViewMasterIngredients.setLayoutManager(new LinearLayoutManager(getContext()));
             MasterListIngredientsAdapter masterListIngredientAdapter = new MasterListIngredientsAdapter(getContext(), recipe.getIngredients());
             mRecyclerViewMasterIngredients.setAdapter(masterListIngredientAdapter);
