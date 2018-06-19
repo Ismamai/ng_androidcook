@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.iblesa.androidcook.R;
 import com.iblesa.androidcook.model.Ingredient;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 import butterknife.BindView;
@@ -53,10 +54,14 @@ public class MasterListIngredientsAdapter extends RecyclerView.Adapter<MasterLis
         }
 
         void bind(Ingredient ingredient) {
+            double quantity = ingredient.getQuantity();
+            String format = NumberFormat.getNumberInstance().format(quantity);
+
             String content = mContext.getResources().getString(R.string.ingredient_item,
-                    ingredient.getIngredient(),
-                    ingredient.getQuantity(),
-                    ingredient.getMeasure());
+                    format,
+                    ingredient.getMeasure(),
+                    ingredient.getIngredient());
+
 
             mIngredient.setText(content);
         }
