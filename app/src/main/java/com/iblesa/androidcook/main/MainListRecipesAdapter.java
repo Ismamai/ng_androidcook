@@ -1,5 +1,7 @@
 package com.iblesa.androidcook.main;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,6 +21,7 @@ import com.iblesa.androidcook.Constants;
 import com.iblesa.androidcook.R;
 import com.iblesa.androidcook.master.MasterActivity;
 import com.iblesa.androidcook.model.Recipe;
+import com.iblesa.androidcook.widget.AndroidCookWidget;
 
 import java.util.List;
 
@@ -99,7 +102,7 @@ public class MainListRecipesAdapter extends RecyclerView.Adapter<MainListRecipes
             bundle.putParcelable("RECIPE", recipe);
             intent.putExtras(bundle);
 
-            storeSelectedStep(recipe);
+            storeSelectedRecipe(recipe);
 
             mContext.startActivity(intent);
         }
@@ -109,7 +112,7 @@ public class MainListRecipesAdapter extends RecyclerView.Adapter<MainListRecipes
          * and ingredients list.
          * @param recipe selected recipe
          */
-        private void storeSelectedStep(Recipe recipe) {
+        private void storeSelectedRecipe(Recipe recipe) {
             SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
             SharedPreferences.Editor edit = defaultSharedPreferences.edit();
             Gson gson = new Gson();
@@ -117,6 +120,13 @@ public class MainListRecipesAdapter extends RecyclerView.Adapter<MainListRecipes
             edit.putString(Constants.SHARED_PREFERENCE_RECIPE_NAME, recipe.getName());
             edit.putString(Constants.SHARED_PREFERENCE_INGREDIENTS_LIST, ingredients);
             edit.apply();
+
+            // Update widgets on step selected
+            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(mContext);
+            int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(mContext, AndroidCookWidget.class));
+            //Trigger data update to handle the GridView widgets and force a data refresh
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_grid_view);
+            AndroidCookWidget.updateWidgets(mContext, appWidgetManager, appWidgetIds);
         }
     }
 }
