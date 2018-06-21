@@ -63,7 +63,8 @@ public class DetailFragment extends Fragment {
         if (savedInstanceState != null) {
             mStep = savedInstanceState.getParcelable(STEP);
         }
-
+        // If we do not have a step, do not try to show anything
+        if (mStep == null) return view;
         mDescription.setText(mStep.getDescription());
         String videoUrl = mStep.getVideoURL();
         String thumbnailURL = mStep.getThumbnailURL();
