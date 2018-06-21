@@ -1,8 +1,8 @@
 package com.iblesa.androidcook.detail;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -27,7 +27,7 @@ public class DetailActivity extends AppCompatActivity {
         mStep = getIntent().getParcelableExtra(STEP);
         mRecipe = getIntent().getParcelableExtra(RECIPE);
         if (savedInstanceState == null) {
-            FragmentManager fragmentManager = getFragmentManager();
+            FragmentManager fragmentManager = getSupportFragmentManager();
             detailFragment = new DetailFragment();
             detailFragment.setStep(mStep);
             fragmentManager.beginTransaction()
@@ -63,7 +63,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void updateFragment() {
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         DetailFragment detailFragment = new DetailFragment();
         fragmentManager.beginTransaction()
                 .replace(R.id.detail_container, detailFragment)
