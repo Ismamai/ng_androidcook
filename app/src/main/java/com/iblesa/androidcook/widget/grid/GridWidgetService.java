@@ -65,7 +65,7 @@ public class GridWidgetService extends RemoteViewsService {
         public RemoteViews getViewAt(int position) {
             RemoteViews views = new RemoteViews(mContext.getPackageName(),
                     R.layout.widget_ingredient_item);
-            views.setTextViewText(R.id.tv_widget_ingredient_item, mIngredients.get(position).getIngredient());
+            views.setTextViewText(R.id.tv_widget_ingredient_item, "- " +mIngredients.get(position).getIngredient());
             Log.d(Constants.TAG, "Setting ingredient for position " + position + " => " + mIngredients.get(position).getIngredient());
             return views;
         }
