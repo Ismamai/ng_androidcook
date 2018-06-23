@@ -19,8 +19,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".master.MasterActivity" />
-        <activity android:name=".detail.DetailActivity" />
+        <activity
+            android:name=".master.MasterActivity"
+            android:parentActivityName=".main.MainActivity" />
+        <activity
+            android:name=".detail.DetailActivity"
+            android:parentActivityName=".master.MasterActivity" />
 
         <receiver android:name=".widget.AndroidCookWidget">
             <intent-filter>
