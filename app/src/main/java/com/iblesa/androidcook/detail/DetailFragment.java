@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,6 +46,11 @@ public class DetailFragment extends Fragment {
     TextView mDescription;
     @BindView(R.id.step_media)
     ImageView mMedia;
+    @BindView(R.id.step_next)
+    Button mNextButton;
+    @BindView(R.id.step_previous)
+    Button mPreviousButton;
+
     //Player config values
     private long playbackPosition;
     private int currentWindow;
@@ -64,7 +70,12 @@ public class DetailFragment extends Fragment {
             mStep = savedInstanceState.getParcelable(STEP);
         }
         // If we do not have a step, do not try to show anything
-        if (mStep == null) return view;
+        if (mStep == null) {
+//            mSimpleExoPlayerView.setVisibility(View.INVISIBLE);
+//            mNextButton.setVisibility(View.INVISIBLE);
+//            mPreviousButton.setVisibility(View.INVISIBLE);
+            return view;
+        }
         mDescription.setText(mStep.getDescription());
         String videoUrl = mStep.getVideoURL();
         String thumbnailURL = mStep.getThumbnailURL();
