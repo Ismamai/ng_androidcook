@@ -22,6 +22,7 @@ import com.iblesa.androidcook.R;
 import com.iblesa.androidcook.master.MasterActivity;
 import com.iblesa.androidcook.model.Recipe;
 import com.iblesa.androidcook.widget.AndroidCookWidget;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -86,7 +87,11 @@ public class MainListRecipesAdapter extends RecyclerView.Adapter<MainListRecipes
             String message = String.format("Setting RecipeViewHolder (%s) with recipe %s", this, recipe);
             Log.d(Constants.TAG, message);
             mTextViewRecipeName.setText(recipe.getName());
-//            mImageViewRecipeImage.setImageResource();
+            Picasso.get()
+                    .load(R.drawable.image_placeholder)
+                    .placeholder(R.drawable.progress_image)
+                    .error(R.drawable.image_placeholder)
+                    .into(mImageViewRecipeImage);
             String servings = mContext.getResources().getString(R.string.recipe_item_serves, recipe.getServings());
             mTextViewRecipeServes.setText(servings);
 
