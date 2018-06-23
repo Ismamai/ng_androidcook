@@ -41,14 +41,7 @@ public class MasterActivity extends AppCompatActivity implements OnStepClickList
                 fragmentManager.beginTransaction()
                         .add(R.id.master_container, masterFragment)
                         .commit();
-
-//                DetailFragment detailFragment = new DetailFragment();
-//
-//                fragmentManager.beginTransaction()
-//                        .add(R.id.detail_container, detailFragment)
-//                        .commit();
             }
-
         }
     }
 

@@ -46,10 +46,6 @@ public class DetailFragment extends Fragment {
     TextView mDescription;
     @BindView(R.id.step_media)
     ImageView mMedia;
-    @BindView(R.id.step_next)
-    Button mNextButton;
-    @BindView(R.id.step_previous)
-    Button mPreviousButton;
 
     //Player config values
     private long playbackPosition;
@@ -71,9 +67,6 @@ public class DetailFragment extends Fragment {
         }
         // If we do not have a step, do not try to show anything
         if (mStep == null) {
-//            mSimpleExoPlayerView.setVisibility(View.INVISIBLE);
-//            mNextButton.setVisibility(View.INVISIBLE);
-//            mPreviousButton.setVisibility(View.INVISIBLE);
             return view;
         }
         mDescription.setText(mStep.getDescription());
