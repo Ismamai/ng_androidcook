@@ -21,7 +21,8 @@
         </activity>
         <activity
             android:name=".master.MasterActivity"
-            android:parentActivityName=".main.MainActivity" />
+            android:parentActivityName=".main.MainActivity"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".detail.DetailActivity"
             android:parentActivityName=".master.MasterActivity" />
