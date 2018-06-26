@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -42,8 +41,10 @@ public class DetailFragment extends Fragment {
     private SimpleExoPlayer mExoPlayer;
     @BindView(R.id.step_video)
     SimpleExoPlayerView mSimpleExoPlayerView;
+    @Nullable
     @BindView(R.id.step_desc)
     TextView mDescription;
+    @Nullable
     @BindView(R.id.step_media)
     ImageView mMedia;
 
@@ -69,7 +70,10 @@ public class DetailFragment extends Fragment {
         if (mStep == null) {
             return view;
         }
-        mDescription.setText(mStep.getDescription());
+
+        if (mDescription != null) {
+            mDescription.setText(mStep.getDescription());
+        }
         String videoUrl = mStep.getVideoURL();
         String thumbnailURL = mStep.getThumbnailURL();
 
