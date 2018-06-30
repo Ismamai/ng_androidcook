@@ -83,8 +83,6 @@ public class DetailFragment extends Fragment {
                 playWhenReady=savedInstanceState.getBoolean(PLAY_WHEN_READY);
                 playbackPosition= savedInstanceState.getLong(PLAYER_POSITION);
                 currentWindow=savedInstanceState.getInt(CURRENT_WINDOW);
-                // mPlayer.setPlayWhenReady(playWhenReady);
-                //    mPlayer.seekTo(currentWindow, playbackPosition);
             }else{
                 playWhenReady = true;
                 playbackPosition=0;
