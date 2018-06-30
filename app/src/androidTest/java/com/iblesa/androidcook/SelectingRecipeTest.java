@@ -15,17 +15,17 @@ import android.util.Log;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.anything;
 
 @RunWith(AndroidJUnit4.class)
 public class SelectingRecipeTest {
-    public static final String NUTELLA_PIE = "Nutella Pie";
+    private static final String NUTELLA_PIE = "Nutella Pie";
+    private static final String NUTELLA_PIE_SERVES = "Serves (8)";
     final CountDownLatch signal = new CountDownLatch(1);
 
     @Rule
@@ -68,5 +68,11 @@ public class SelectingRecipeTest {
 
         onView(withId(R.id.tv_master_recipe_name)).check(matches(withText(NUTELLA_PIE)));
         Log.d(Constants.TAG, "TEST: Passed");
+    }
+
+    @Test
+    public void isMainActivityDisplayedTest() {
+        onView(withId(R.id.rv_main_recipes)).check(matches(isDisplayed()));
+
     }
 }
